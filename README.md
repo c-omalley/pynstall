@@ -1,2 +1,2 @@
 # pynstall
-Install python scripts and modules (projects) from the project's respective folder to folder named by $PYSCRIPTS and $PYMODULES
+Install python scripts and module to their respective folder as named by $PYSCRIPTS or $PYMODULES
