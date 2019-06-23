@@ -49,7 +49,7 @@ def _install_module(name):
 # The link will be placed in the designated folder: $PYSCRIPTS
 def _install_script(name):
     source = Path(name)
-    if 'linux' in self.platform:
+    if 'linux' in sys.platform:
         source.chmod(0o755)
         destination = script_folder /  source.stem
     else:
