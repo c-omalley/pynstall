@@ -2,10 +2,20 @@
 # -*- coding: utf-8 -*-
 #-----------------------------------------------------------------------------
 # File: pynstall.py
-# Date: 2019-06-22
+# 
+# Install python scripts and module to their respective folder as named by 
+# $PYSCRIPTS or $PYMODULES
 #-----------------------------------------------------------------------------
-# Synopsis
-#-----------------------------------------------------------------------------
+
+help = '''
+Usage: pyinstall [-m] <script or module name(s)>
+
+Options:
+
+    -h  show this help message and exit
+    
+    -m  treat the file(s) as module(s)
+'''
 
 import os
 import sys
@@ -13,10 +23,19 @@ from glob import glob
 from pathlib import Path
 
 
-# export SCRIPTS="$HOME/Scripts"
-script_folder = Path(os.environ['PYSCRIPTS'])
-module_folder = Path(os.environ['PYMODULES'])
+# export PYSCRIPTS="$HOME/Projects/Scripts"
+# export PYMODULES="$HOME/Projects/Modules
+try:
+    script_folder = Path(os.environ['PYSCRIPTS'])
+    module_folder = Path(os.environ['PYMODULES'])
+except KeyError:
+    msg = '''Please set the environment variables PYSCRIPTS and PYMODULES.
 
+  - Modules will be placed in the folder indicated by PYMODULES
+  
+  - Scripts will be placed in the folder indicated by PYMODULES
+'''
+    sys.exit(msg)
 
 # Create a symbolic link to the module.
 # The link will be placed in the designated folder: $PYMODULES
@@ -61,6 +80,10 @@ if __name__ == '__main__':
         except ValueError:
             return False
 
+    # Help message?
+    if flag('-h'):
+        sys.exit(help)
+        
     # Installing a module?
     module = flag('-m')
 
